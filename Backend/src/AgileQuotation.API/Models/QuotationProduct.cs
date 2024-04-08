@@ -26,5 +26,6 @@ namespace AgileQuotation.API.Models
         public Enum SKUPositive { get; set; }
         public Enum IndAtac { get; set; }
         public decimal CountBySKU { get; set; }
+        public List<ProductSupplier> ProductSupplier { get; set; }
     }
 }
