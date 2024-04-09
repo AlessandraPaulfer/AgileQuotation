@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgileQuotation.API.Data;
+using AgileQuotation.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -27,11 +29,17 @@ namespace AgileQuotation.API.Controllers
         // {
         //     _logger = logger;
         // }
+        
+        private readonly DataContext _context;
+        public QuotationController (DataContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
-        public string Get()
+        public IEnumerable<ProductSupplier> Get()
         {
-            return "value";
+            return _context.ProductSupplier;
         }
     }
 }
