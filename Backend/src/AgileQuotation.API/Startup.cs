@@ -38,7 +38,8 @@ namespace AgileQuotation.API
                             {
                             builder.WithOrigins("https://example.com", "https://anotherdomain.com")
                                  .AllowAnyHeader()
-                                 .AllowAnyMethod();
+                                 .AllowAnyMethod()
+                                 .AllowAnyOrigin();
                             });
                             });
             services.AddDbContext<DataContext>(

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgileQuotation.API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240409112826_Initial")]
-    partial class Initial
+    [Migration("20240412123947_1204Migration")]
+    partial class _1204Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,9 +18,9 @@ namespace AgileQuotation.API.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.17");
 
-            modelBuilder.Entity("AgileQuotation.API.Models.ProductSupplier", b =>
+            modelBuilder.Entity("AgileQuotation.API.Models.QuotationProduct", b =>
                 {
-                    b.Property<int>("ProductSupplierId")
+                    b.Property<int>("QuotationProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -42,9 +42,6 @@ namespace AgileQuotation.API.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Group")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("LastMonthValidate")
                         .HasColumnType("TEXT");
 
@@ -57,8 +54,8 @@ namespace AgileQuotation.API.Data.Migrations
                     b.Property<decimal>("LastValidate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("SKU")
-                        .HasColumnType("INTEGER");
+                    b.Property<decimal>("SKU")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("StatusProduct")
                         .HasColumnType("INTEGER");
@@ -66,7 +63,10 @@ namespace AgileQuotation.API.Data.Migrations
                     b.Property<string>("SubBrand")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SubGroup")
+                    b.Property<string>("TheGroup")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TheSubGroup")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("TypeIndAtac")
@@ -87,9 +87,9 @@ namespace AgileQuotation.API.Data.Migrations
                     b.Property<decimal>("Weigth")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ProductSupplierId");
+                    b.HasKey("QuotationProductId");
 
-                    b.ToTable("ProductSupplier");
+                    b.ToTable("QuotationProduct");
                 });
 
             modelBuilder.Entity("AgileQuotation.API.Models.QuotationSupplier", b =>
@@ -104,32 +104,42 @@ namespace AgileQuotation.API.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProductSupplierId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("State")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StatusSupplier")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("QuotationSupplierId");
 
-                    b.HasIndex("ProductSupplierId");
-
                     b.ToTable("QuotationSupplier");
                 });
 
-            modelBuilder.Entity("AgileQuotation.API.Models.QuotationSupplier", b =>
+            modelBuilder.Entity("QuotationProductQuotationSupplier", b =>
                 {
-                    b.HasOne("AgileQuotation.API.Models.ProductSupplier", null)
-                        .WithMany("QuotationSupplier")
-                        .HasForeignKey("ProductSupplierId");
+                    b.Property<int>("ProductsQuotationProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SuppliersQuotationSupplierId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductsQuotationProductId", "SuppliersQuotationSupplierId");
+
+                    b.HasIndex("SuppliersQuotationSupplierId");
+
+                    b.ToTable("QuotationProductQuotationSupplier");
                 });
 
-            modelBuilder.Entity("AgileQuotation.API.Models.ProductSupplier", b =>
+            modelBuilder.Entity("QuotationProductQuotationSupplier", b =>
                 {
-                    b.Navigation("QuotationSupplier");
+                    b.HasOne("AgileQuotation.API.Models.QuotationProduct", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsQuotationProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgileQuotation.API.Models.QuotationSupplier", null)
+                        .WithMany()
+                        .HasForeignKey("SuppliersQuotationSupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

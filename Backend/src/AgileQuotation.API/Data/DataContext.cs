@@ -10,7 +10,7 @@ namespace AgileQuotation.API.Data
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-        public DbSet<ProductSupplier> ProductSupplier { get; set; }
         public DbSet<QuotationSupplier> QuotationSupplier { get; set; }
+        public DbSet<QuotationProduct> QuotationProduct { get; set; }
     }
 }

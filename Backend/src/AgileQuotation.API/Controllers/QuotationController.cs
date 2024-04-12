@@ -36,10 +36,10 @@ namespace AgileQuotation.API.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IEnumerable<ProductSupplier> Get()
-        {
-            return _context.ProductSupplier;
-        }
+        // [HttpGet]
+        // public IEnumerable<ProductSupplier> Get()
+        // {
+        //     return _context.ProductSupplier;
+        // }
     }
 }

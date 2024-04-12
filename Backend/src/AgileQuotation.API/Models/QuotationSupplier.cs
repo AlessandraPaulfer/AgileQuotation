@@ -11,10 +11,10 @@ namespace AgileQuotation.API.Models
         public string Name { get; set; }
         public bool State { get; set; }
         public decimal Price { get; set; }
-        public StatusSupplier StatusSupplier { get; set; }
-    }
-
-    public enum StatusSupplier {
-
+        public List<QuotationProduct> Products { get; set; }
+        public QuotationSupplier()
+        {
+            Products = new List<QuotationProduct>();
+        }
     }
 }
