@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AgileQuotation.API.Data;
+using AgileQuotation.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,7 +42,7 @@ namespace AgileQuotation.API
                                  .AllowAnyOrigin();
                             });
                             });
-            services.AddDbContext<DataContext>(
+            services.AddDbContext<AgileQuotationContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
             services.AddControllers();

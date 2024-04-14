@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AgileQuotation.API.Data;
-using AgileQuotation.API.Models;
+using AgileQuotation.Persistence;
+using AgileQuotation.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -30,8 +30,8 @@ namespace AgileQuotation.API.Controllers
         //     _logger = logger;
         // }
         
-        private readonly DataContext _context;
-        public QuotationController (DataContext context)
+        private readonly AgileQuotationContext _context;
+        public QuotationController (AgileQuotationContext context)
         {
             _context = context;
         }

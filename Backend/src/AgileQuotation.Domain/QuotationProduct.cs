@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AgileQuotation.API.Models
+namespace AgileQuotation.Domain
 {
     public class QuotationProduct
     {
-        public int QuotationProductId { get; set; }
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal SKU { get; set; }
         public string Description { get; set; }

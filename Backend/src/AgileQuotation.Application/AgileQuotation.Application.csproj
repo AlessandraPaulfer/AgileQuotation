@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgileQuotation.Domain\AgileQuotation.Domain.csproj" />
+    <ProjectReference Include="..\AgileQuotation.Persistence\AgileQuotation.Persistence.csproj" />
+  </ItemGroup>
+</Project>

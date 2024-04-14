@@ -1,17 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AgileQuotation.API.Data.Migrations
+namespace AgileQuotation.Persistence.Migrations
 {
-    public partial class _1204Migration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "QuotationProduct",
+                name: "QuotationProducts",
                 columns: table => new
                 {
-                    QuotationProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     SKU = table.Column<decimal>(type: "TEXT", nullable: false),
@@ -37,14 +37,14 @@ namespace AgileQuotation.API.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuotationProduct", x => x.QuotationProductId);
+                    table.PrimaryKey("PK_QuotationProducts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuotationSupplier",
+                name: "QuotationSuppliers",
                 columns: table => new
                 {
-                    QuotationSupplierId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     State = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -52,49 +52,81 @@ namespace AgileQuotation.API.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuotationSupplier", x => x.QuotationSupplierId);
+                    table.PrimaryKey("PK_QuotationSuppliers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductSuppliers",
+                columns: table => new
+                {
+                    QuotationProductId = table.Column<int>(type: "INTEGER", nullable: false),
+                    QuotationSupplierId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductSuppliers", x => new { x.QuotationProductId, x.QuotationSupplierId });
+                    table.ForeignKey(
+                        name: "FK_ProductSuppliers_QuotationProducts_QuotationProductId",
+                        column: x => x.QuotationProductId,
+                        principalTable: "QuotationProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductSuppliers_QuotationSuppliers_QuotationSupplierId",
+                        column: x => x.QuotationSupplierId,
+                        principalTable: "QuotationSuppliers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "QuotationProductQuotationSupplier",
                 columns: table => new
                 {
-                    ProductsQuotationProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SuppliersQuotationSupplierId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProductsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SuppliersId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuotationProductQuotationSupplier", x => new { x.ProductsQuotationProductId, x.SuppliersQuotationSupplierId });
+                    table.PrimaryKey("PK_QuotationProductQuotationSupplier", x => new { x.ProductsId, x.SuppliersId });
                     table.ForeignKey(
-                        name: "FK_QuotationProductQuotationSupplier_QuotationProduct_ProductsQuotationProductId",
-                        column: x => x.ProductsQuotationProductId,
-                        principalTable: "QuotationProduct",
-                        principalColumn: "QuotationProductId",
+                        name: "FK_QuotationProductQuotationSupplier_QuotationProducts_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "QuotationProducts",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_QuotationProductQuotationSupplier_QuotationSupplier_SuppliersQuotationSupplierId",
-                        column: x => x.SuppliersQuotationSupplierId,
-                        principalTable: "QuotationSupplier",
-                        principalColumn: "QuotationSupplierId",
+                        name: "FK_QuotationProductQuotationSupplier_QuotationSuppliers_SuppliersId",
+                        column: x => x.SuppliersId,
+                        principalTable: "QuotationSuppliers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuotationProductQuotationSupplier_SuppliersQuotationSupplierId",
+                name: "IX_ProductSuppliers_QuotationSupplierId",
+                table: "ProductSuppliers",
+                column: "QuotationSupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuotationProductQuotationSupplier_SuppliersId",
                 table: "QuotationProductQuotationSupplier",
-                column: "SuppliersQuotationSupplierId");
+                column: "SuppliersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ProductSuppliers");
+
+            migrationBuilder.DropTable(
                 name: "QuotationProductQuotationSupplier");
 
             migrationBuilder.DropTable(
-                name: "QuotationProduct");
+                name: "QuotationProducts");
 
             migrationBuilder.DropTable(
-                name: "QuotationSupplier");
+                name: "QuotationSuppliers");
         }
     }
 }
