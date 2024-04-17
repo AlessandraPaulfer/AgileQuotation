@@ -4,6 +4,7 @@ using AgileQuotation.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using AgileQuotation.Persistence.Contextos;
 
 namespace AgileQuotation.Persistence.Migrations
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AgileQuotation.Persistence;
+using AgileQuotation.Persistence.Contextos;
 using AgileQuotation.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
