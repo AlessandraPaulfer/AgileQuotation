@@ -16,12 +16,12 @@ export class AppComponent {
   }
 
   setCurrentUser(): void {
-    let user: User;
+    let user: User | null; // Update the type to 'User | null'
 
     if (localStorage.getItem('user'))
       user = JSON.parse(localStorage.getItem('user') ?? '{}');
     else
-      user = null
+      user = null;
 
     if (user)
       this.accountService.setCurrentUser(user);

@@ -21,7 +21,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContatosComponent } from './components/contatos/contatos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { PerfilDetalheComponent } from './components/user/perfil/perfil-detalhe/perfil-detalhe.component';
@@ -43,7 +42,6 @@ defineLocale('pt-br', ptBrLocale);
 @NgModule({
   declarations: [
     AppComponent,
-    ContatosComponent,
     DashboardComponent,
     PerfilComponent,
     PerfilDetalheComponent,

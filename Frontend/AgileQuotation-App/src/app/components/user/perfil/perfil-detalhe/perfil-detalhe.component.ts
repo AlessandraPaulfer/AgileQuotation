@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ValidatorField } from '@app/helpers/ValidatorField';
-import { UserUpdate } from '@app/models/identity/UserUpdate';
-import { AccountService } from '@app/services/account.service';
-import { PalestranteService } from '@app/services/palestrante.service';
+import { ValidatorField } from 'src/app/helpers/ValidatorField';
+import { UserUpdate } from 'src/app/models/identity/UserUpdate'
+import { AccountService } from 'src/app/services/account.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-perfil-detalhe',
@@ -21,7 +21,6 @@ export class PerfilDetalheComponent implements OnInit {
 
   constructor( private fb: FormBuilder,
     public accountService: AccountService,
-    public palestranteService: PalestranteService,
     private router: Router,
     private toaster: ToastrService,
     private spinner: NgxSpinnerService
@@ -42,6 +41,9 @@ export class PerfilDetalheComponent implements OnInit {
     this.spinner.show();
     this.accountService
       .getUser()
+      .pipe(
+        finalize(() => this.spinner.hide())
+      )
       .subscribe(
         (userRetorno: UserUpdate) => {
           console.log(userRetorno);
@@ -54,8 +56,7 @@ export class PerfilDetalheComponent implements OnInit {
           this.toaster.error('Usuário não Carregado', 'Erro');
           this.router.navigate(['/dashboard']);
         }
-      )
-      .add(this.spinner.hide());
+      );
   }
 
   private validation(): void {
@@ -93,16 +94,6 @@ export class PerfilDetalheComponent implements OnInit {
   public atualizarUsuario() {
     this.userUpdate = { ...this.form.value };
     this.spinner.show();
-
-    if (this.f.funcao.value == 'Palestrante') {
-      this.palestranteService.post().subscribe(
-        () => this.toaster.success('Função palestrante Ativada!', 'Sucesso!'),
-        (error) => {
-          this.toaster.error('A função palestrante não pode ser Ativada', 'Error');
-          console.error(error);
-        }
-      )
-    }
 
     this.accountService
       .updateUser(this.userUpdate)

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { UserUpdate } from '@app/models/identity/UserUpdate';
-import { AccountService } from '@app/services/account.service';
-import { environment } from '@environments/environment';
+import { UserUpdate } from 'src/app/models/identity/UserUpdate';
+import { AccountService } from 'src/app/services/account.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -43,8 +43,9 @@ export class PerfilComponent implements OnInit {
 
     reader.onload = (event: any) => this.imagemURL = event.target.result;
 
-    this.file = ev.target.files;
-    reader.readAsDataURL(this.file[0]);
+    this.file = ev.target.files[0] as File; // Access the first file from the FileList
+
+    reader.readAsDataURL(this.file);
 
     this.uploadImagem();
   }
