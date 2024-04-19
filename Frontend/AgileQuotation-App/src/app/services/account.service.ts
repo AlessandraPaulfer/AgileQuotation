@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
-import { environment } from '@environments/environment';
-import { User } from '@app/models/identity/User';
+import { environment } from 'src/environments/environment';
+import { User } from 'src/app/models/identity/User';
 import { map, take } from 'rxjs/operators';
 import { UserUpdate } from '../models/identity/UserUpdate';
 
@@ -54,7 +54,7 @@ export class AccountService {
 
   logout(): void {
     localStorage.removeItem('user');
-    this.currentUserSource.next(null);
+    this.currentUserSource.next(undefined);
     this.currentUserSource.complete();
   }
 
@@ -64,7 +64,7 @@ export class AccountService {
   }
 
   postUpload(file: File): Observable<UserUpdate> {
-    const fileToUpload = file[0] as File;
+    const fileToUpload = file as File;
     const formData = new FormData();
     formData.append('file', fileToUpload);
 
