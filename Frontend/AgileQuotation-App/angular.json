@@ -107,5 +107,10 @@
       }
     }
   },
-  "defaultProject": "AgileQuotation-App"
+  "defaultProject": "AgileQuotation-App",
+  "cli": {
+    "cache": {
+      "enabled": false
+    }
+  }
 }
