@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using AgileQuotation.Persistence.Contextos;
 using AgileQuotation.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AgileQuotation.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class QuotationController : ControllerBase
